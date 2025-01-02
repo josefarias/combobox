@@ -802,7 +802,7 @@ Combobox.Multiselect = Base => class extends Base {
     currentTarget.closest("[data-hw-combobox-chip]").remove();
 
     if (!this._isSmallViewport) {
-      this.openByFocusing();
+      this.open();
     }
 
     this._announceToScreenReader(display, "removed");
@@ -827,7 +827,7 @@ Combobox.Multiselect = Base => class extends Base {
       cancel(event);
     },
     Escape: (event) => {
-      this.openByFocusing();
+      this.open();
       cancel(event);
     }
   }
@@ -851,7 +851,7 @@ Combobox.Multiselect = Base => class extends Base {
 
       if (shouldReopen) {
         await nextRepaint();
-        this.openByFocusing();
+        this.open();
       }
 
       this._announceToScreenReader(display, "multi-selected. Press Shift + Tab, then Enter to remove.");
@@ -969,11 +969,11 @@ Combobox.Navigation = Base => class extends Base {
       cancel(event);
     },
     Enter: (event) => {
-      this._closeAndBlur("hw:keyHandler:enter");
+      this.close("hw:keyHandler:enter");
       cancel(event);
     },
     Escape: (event) => {
-      this._closeAndBlur("hw:keyHandler:escape");
+      this.close("hw:keyHandler:escape");
       cancel(event);
     },
     Backspace: (event) => {
@@ -1082,7 +1082,7 @@ Combobox.Options = Base => class extends Base {
 Combobox.Selection = Base => class extends Base {
   selectOnClick({ currentTarget, inputType }) {
     this._forceSelectionAndFilter(currentTarget, inputType);
-    this._closeAndBlur("hw:optionRoleClick");
+    this.close("hw:optionRoleClick");
   }
 
   _connectSelection() {
@@ -1512,10 +1512,6 @@ Combobox.Toggle = Base => class extends Base {
     this.expandedValue = true;
   }
 
-  openByFocusing() {
-    this._actingCombobox.focus();
-  }
-
   close(inputType) {
     if (this._isOpen) {
       const shouldReopen = this._isMultiselect &&
@@ -1543,9 +1539,9 @@ Combobox.Toggle = Base => class extends Base {
 
   toggle() {
     if (this.expandedValue) {
-      this._closeAndBlur("hw:toggle");
+      this.close("hw:toggle");
     } else {
-      this.openByFocusing();
+      this.open();
     }
   }
 
@@ -1556,28 +1552,23 @@ Combobox.Toggle = Base => class extends Base {
     if (this.mainWrapperTarget.contains(target) && !this._isDialogDismisser(target)) return
     if (this._withinElementBounds(event)) return
 
-    this._closeAndBlur("hw:clickOutside");
+    this.close("hw:clickOutside");
   }
 
   closeOnFocusOutside({ target }) {
     if (!this._isOpen) return
     if (this.element.contains(target)) return
 
-    this._closeAndBlur("hw:focusOutside");
+    this.close("hw:focusOutside");
   }
 
   clearOrToggleOnHandleClick() {
     if (this._isQueried) {
       this._clearQuery();
-      this._actingCombobox.focus();
+      this.open();
     } else {
       this.toggle();
     }
-  }
-
-  _closeAndBlur(inputType) {
-    this.close(inputType);
-    this._actingCombobox.blur();
   }
 
   // Some browser extensions like 1Password overlay elements on top of the combobox.
@@ -1808,7 +1799,7 @@ class HwComboboxController extends Concerns(...concerns) {
       this._resetMultiselectionMarks();
 
       if (inputType === "hw:multiselectSync") {
-        this.openByFocusing();
+        this.open();
       } else if (inputType !== "hw:lockInSelection") {
         this._selectOnQuery(inputType);
       }
@@ -1819,7 +1810,7 @@ class HwComboboxController extends Concerns(...concerns) {
   }
 
   closerTargetConnected() {
-    this._closeAndBlur("hw:asyncCloser");
+    this.close("hw:asyncCloser");
   }
 
   // Use +_printStack+ for debugging purposes

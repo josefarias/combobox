@@ -25,7 +25,7 @@ Combobox.Multiselect = Base => class extends Base {
     currentTarget.closest("[data-hw-combobox-chip]").remove()
 
     if (!this._isSmallViewport) {
-      this.openByFocusing()
+      this.open()
     }
 
     this._announceToScreenReader(display, "removed")
@@ -50,7 +50,7 @@ Combobox.Multiselect = Base => class extends Base {
       cancel(event)
     },
     Escape: (event) => {
-      this.openByFocusing()
+      this.open()
       cancel(event)
     }
   }
@@ -74,7 +74,7 @@ Combobox.Multiselect = Base => class extends Base {
 
       if (shouldReopen) {
         await nextRepaint()
-        this.openByFocusing()
+        this.open()
       }
 
       this._announceToScreenReader(display, "multi-selected. Press Shift + Tab, then Enter to remove.")

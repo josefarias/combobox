@@ -147,7 +147,6 @@ class SelectionTest < ApplicationSystemTestCase
     assert_no_selector ".hw-combobox__input[data-queried]"
     open_combobox "#movie-field"
     click_on_option "Aladdin"
-    sleep 1
     assert_closed_combobox
     assert_combobox_display_and_value "#movie-field", "Aladdin", movies(:aladdin).id
     assert_selector ".hw-combobox__input[data-queried]"
