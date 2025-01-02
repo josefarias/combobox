@@ -21,14 +21,12 @@ class MultiselectTest < ApplicationSystemTestCase
       states(:alabama, :california, :arizona).pluck(:id)
 
     remove_chip "California"
+    assert_option_with text: "California"
 
     assert_combobox_display_and_value \
       "#states-field",
       %w[ Alabama Arizona ],
       states(:alabama, :arizona).pluck(:id)
-
-    open_combobox "#states-field"
-    assert_option_with text: "California"
   end
 
   test "multiselect idiosyncrasies" do

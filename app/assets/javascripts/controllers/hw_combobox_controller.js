@@ -108,7 +108,7 @@ export default class HwComboboxController extends Concerns(...concerns) {
       this._resetMultiselectionMarks()
 
       if (inputType === "hw:multiselectSync") {
-        this.openByFocusing()
+        this.open()
       } else if (inputType !== "hw:lockInSelection") {
         this._selectOnQuery(inputType)
       }
@@ -119,7 +119,7 @@ export default class HwComboboxController extends Concerns(...concerns) {
   }
 
   closerTargetConnected() {
-    this._closeAndBlur("hw:asyncCloser")
+    this.close("hw:asyncCloser")
   }
 
   // Use +_printStack+ for debugging purposes

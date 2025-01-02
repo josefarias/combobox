@@ -37,9 +37,13 @@ class KeyboardNavigationTest < ApplicationSystemTestCase
     assert_no_visible_selected_option # because the list is closed
 
     type_in_combobox "#state-field", :backspace
-    assert_open_combobox
+    assert_closed_combobox
     assert_combobox_display_and_value "#state-field", "Illinoi", nil
+
+    open_combobox "#state-field"
+    assert_open_combobox
     assert_no_visible_selected_option
+    assert_combobox_display_and_value "#state-field", "Illinoi", nil
   end
 
   test "navigating with the arrow keys" do

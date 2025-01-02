@@ -124,11 +124,9 @@ This gem follows the [APG combobox pattern guidelines](https://www.w3.org/WAI/AR
 
 These are the exceptions:
 
-1. Users cannot manipulate the combobox while it's closed. As long as the combobox is focused, the listbox is shown.
-2. The escape key closes the listbox and blurs the combobox. It does not clear the combobox.
-3. The listbox has wrap-around selection. That is, pressing `Up Arrow` when the user is on the first option will select the last option. And pressing `Down Arrow` when on the last option will select the first option. In paginated comboboxes, the first and last options refer to the currently available options. More options may be loaded after navigating to the last currently available option.
-4. It is possible to have an unlabeled combobox, as that responsibility is delegated to the implementing user.
-5. There are currently [no APG guidelines](https://github.com/w3c/aria-practices/issues/1512) for a multiselect combobox. We've introduced some mechanisms to make the experience accessible, like announcing multi-selections via a live region. But we'd welcome feedback on how to make it better until official guidelines are available.
+1. The listbox has wrap-around selection. That is, pressing `Up Arrow` when the user is on the first option will select the last option. And pressing `Down Arrow` when on the last option will select the first option. In paginated comboboxes, the first and last options refer to the currently available options. More options may be loaded after navigating to the last currently available option.
+2. It is possible to have an unlabeled combobox, as that responsibility is delegated to the implementing user.
+3. There are currently [no APG guidelines](https://github.com/w3c/aria-practices/issues/1512) for a multiselect combobox. We've introduced some mechanisms to make the experience accessible, like announcing multi-selections via a live region. But we'd welcome feedback on how to make it better until official guidelines are available.
 
 It should be noted none of the maintainers use assistive technologies in their daily lives. If you do, and you feel these exceptions are detrimental to your ability to use the component, or if you find an undocumented exception, please [open a GitHub issue](https://github.com/josefarias/hotwire_combobox/issues). We'll get it sorted.
 

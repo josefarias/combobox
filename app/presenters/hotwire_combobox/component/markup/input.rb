@@ -19,7 +19,7 @@ module HotwireCombobox::Component::Markup::Input
     def input_data
       combobox_attrs.fetch(:data, {}).merge \
         action: "
-          focus->hw-combobox#open
+          click->hw-combobox#toggle
           input->hw-combobox#filterAndSelect
           keydown->hw-combobox#navigate
           click@window->hw-combobox#closeOnClickOutside
